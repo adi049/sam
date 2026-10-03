@@ -41,8 +41,6 @@ body{background:#F7F9FF;color:#0A2A62;overflow-x:hidden}
 ::-webkit-scrollbar{width:10px;height:8px}
 ::-webkit-scrollbar-track{background:#EAF0FF}
 ::-webkit-scrollbar-thumb{background:linear-gradient(#0A2A62,#1656D6);border-radius:10px}
-#preloader{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#071E47 0%,#0A2A62 60%,#1656D6 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
-#preloader.hide{opacity:0;visibility:hidden}
 .loader-moon{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#FFD86B 40%,#FF6B2C 75%);box-shadow:0 0 60px rgba(255,184,0,.6);position:relative;animation:floatMoon 2s ease-in-out infinite}
 .loader-moon:after{content:'';position:absolute;inset:0;border-radius:50%;border:4px solid transparent;border-top-color:#fff;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -104,17 +102,176 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 .float-shape{position:absolute;border-radius:50%;filter:blur(60px);opacity:.35;pointer-events:none}
 select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230A2A62' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
 @media(max-width:768px){.ticker{font-size:12px}}
+
+/* ============ MOBILE RESPONSIVE FIXES ============ */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%}
+button,input,select,textarea{max-width:100%;box-sizing:border-box}
+
+@media (max-width: 768px){
+  body{font-size:14px}
+
+  /* Header: prevent logo + actions from pushing the page wider than the phone. */
+  #mainHeader > .max-w-7xl{
+    padding-left:12px!important;
+    padding-right:12px!important;
+    gap:8px!important;
+  }
+  #mainHeader > .max-w-7xl > a{
+    min-width:0;
+    gap:7px!important;
+  }
+  #mainHeader > .max-w-7xl > a > div:first-child{
+    width:40px!important;
+    height:40px!important;
+    min-width:40px!important;
+    border-radius:13px!important;
+  }
+  #mainHeader > .max-w-7xl > a > div:last-child{
+    min-width:0;
+  }
+  #mainHeader > .max-w-7xl > a > div:last-child > div:first-child{
+    font-size:17px!important;
+    white-space:nowrap;
+  }
+  #mainHeader > .max-w-7xl > a > div:last-child > div:last-child{
+    font-size:8px!important;
+    letter-spacing:1px!important;
+    white-space:nowrap;
+  }
+  #mainHeader > .max-w-7xl > div:last-child{
+    flex-shrink:0;
+    gap:6px!important;
+  }
+  #mainHeader > .max-w-7xl > div:last-child .btn-primary{
+    width:42px!important;
+    height:42px!important;
+    padding:0!important;
+    justify-content:center!important;
+    border-radius:12px!important;
+    font-size:0!important;
+  }
+  #mainHeader > .max-w-7xl > div:last-child .btn-primary i{
+    font-size:15px!important;
+    margin:0!important;
+  }
+  #mainHeader > .max-w-7xl > div:last-child > button:last-child{
+    width:42px!important;
+    height:42px!important;
+    flex-shrink:0;
+  }
+
+  /* Top strip stays compact on small screens. */
+  .top-strip{font-size:10px!important}
+  .top-strip > div{padding-left:12px!important;padding-right:12px!important}
+  .top-strip > div > div{gap:8px!important}
+  .top-strip a{white-space:nowrap}
+
+  /* Hero becomes a clean single-column mobile layout. */
+  #home{min-height:auto!important}
+  #home > .relative.max-w-7xl{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+    padding:28px 12px 34px!important;
+  }
+  #home .float-shape{display:none}
+  #heroTextWrap{min-height:0!important}
+  #heroTitle{font-size:34px!important;line-height:1.08!important}
+  #heroSub{font-size:14px!important;line-height:1.6!important}
+  #home .text-white > .inline-flex{
+    max-width:100%;
+    white-space:normal;
+    line-height:1.35;
+  }
+  #home .text-white > .mt-6.flex.items-center{
+    flex-wrap:wrap;
+    gap:12px!important;
+    margin-top:22px!important;
+  }
+  #home .text-white > .mt-6.flex.items-center > .flex.-space-x-3{
+    flex-shrink:0;
+  }
+  #home .text-white > .mt-6.flex.items-center > .text-sm{
+    min-width:0;
+  }
+
+  /* Quote widget: forms were hard-coded to 2 columns, which is the main mobile breakage. */
+  #quoteBox{border-radius:22px!important;width:100%;min-width:0}
+  #quoteBox .quote-form{grid-template-columns:1fr!important}
+  #quoteBox .quote-form > .col-span-2{grid-column:1/-1!important}
+  #quoteBox .quote-form > div{min-width:0}
+  #quoteBox .quote-form input,
+  #quoteBox .quote-form select,
+  #quoteBox .quote-form button{width:100%;min-width:0}
+  #quoteTabs{scrollbar-width:none;-ms-overflow-style:none}
+  #quoteTabs::-webkit-scrollbar{display:none}
+  #quoteTabs .quote-tab{flex-shrink:0}
+  #quoteBox .px-5{padding-left:14px!important;padding-right:14px!important}
+
+  /* Sections and cards should never create accidental horizontal overflow. */
+  .max-w-7xl{max-width:100%!important}
+  section > .max-w-7xl,
+  section.max-w-7xl{padding-left:12px!important;padding-right:12px!important}
+  .prod-card,.faq-item,.partner-logo,.bg-white{min-width:0}
+
+  /* Tables and comparison areas remain scrollable instead of stretching the viewport. */
+  #compareModal .overflow-x-auto{max-width:100%;overflow-x:auto}
+  #compareTable{min-width:560px}
+
+  /* Modal spacing on phones. */
+  .modal-bg{padding:8px!important}
+  .modal-bg > div{border-radius:22px!important;margin-top:8px!important;margin-bottom:8px!important}
+  #quoteModal .max-w-5xl,#buyModal .max-w-2xl,#compareModal .max-w-4xl{width:100%;max-width:100%}
+  #quoteModal .p-5,#buyModal .p-6{padding:14px!important}
+  #buyModal .px-6{padding-left:14px!important;padding-right:14px!important}
+
+  /* Checkout stepper stays inside the phone. */
+  #buySteps{gap:5px!important;overflow:hidden}
+  #buySteps .step-dot{width:30px;height:30px;min-width:30px;font-size:12px}
+
+  /* Floating controls and chatbot fit small screens. */
+  body > .fixed.bottom-5.right-5{
+    right:10px!important;
+    bottom:10px!important;
+    gap:8px!important;
+  }
+  body > .fixed.bottom-5.right-5 > button:first-child{
+    padding:9px 12px!important;
+    font-size:12px!important;
+  }
+  #chatWin{
+    left:8px!important;
+    right:8px!important;
+    bottom:76px!important;
+    width:auto!important;
+    max-width:none!important;
+    height:min(520px,calc(100dvh - 100px))!important;
+    border-radius:22px!important;
+  }
+  #chatWin input{min-width:0}
+
+  /* Toasts/search don't escape the viewport. */
+  #toasts{left:8px!important;right:8px!important;width:auto!important;max-width:none!important}
+  #searchOverlay > div{margin-top:12px!important;padding:16px!important}
+
+  /* Two-column content that is not already Tailwind-responsive. */
+  #renewResult .grid.grid-cols-2,
+  #plansGrid .grid.grid-cols-2{grid-template-columns:1fr!important}
+}
+
+@media (max-width: 380px){
+  #mainHeader > .max-w-7xl > a > div:last-child > div:first-child{font-size:15px!important}
+  #mainHeader > .max-w-7xl > a > div:last-child > div:last-child{font-size:7px!important}
+  #mainHeader > .max-w-7xl > a > div:first-child{width:36px!important;height:36px!important;min-width:36px!important}
+  #mainHeader > .max-w-7xl > div:last-child .btn-primary,
+  #mainHeader > .max-w-7xl > div:last-child > button:last-child{width:38px!important;height:38px!important}
+  #heroTitle{font-size:30px!important}
+}
+
 </style>
 </head>
 <body>
-
-<!-- PRELOADER -->
-<div id="preloader">
-  <div class="loader-moon"></div>
-  <h1 class="text-white text-3xl font-extrabold mt-6 tracking-tight">LUNA <span class="text-lunaGold">INSURANCE</span></h1>
-  <p class="text-blue-200 text-sm mt-2 tracking-widest uppercase">Suraksha Ka Vaada • IRDAI Licensed</p>
-  <div class="mt-5 w-56 h-1.5 bg-white/20 rounded-full overflow-hidden"><div id="loadBar" class="h-full w-0 bg-gradient-to-r from-lunaGold to-lunaOrange rounded-full transition-all"></div></div>
-</div>
 
 <!-- TOP STRIP -->
 <div class="top-strip text-white text-[12.5px]">
@@ -768,8 +925,6 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 
 <script>
 /* ============ PRELOADER ============ */
-let lp=0; const loadInt=setInterval(()=>{lp+=12;document.getElementById('loadBar').style.width=lp+'%';if(lp>=100){clearInterval(loadInt);setTimeout(()=>document.getElementById('preloader').classList.add('hide'),300)}},120);
-
 /* ============ HELPERS ============ */
 const $=id=>document.getElementById(id);
 const inr=n=>'₹'+Number(Math.round(n)).toLocaleString('en-IN');
@@ -843,279 +998,3 @@ document.querySelectorAll('.quote-form').forEach(f=>f.addEventListener('submit',
   const ids=map[activeQuote];
   if(ids[0]&&ids[0].includes('No')){const v=$(ids[0]).value.trim();if(v.length<4){toast('Please enter a valid vehicle number','error');return}}
   if(!checkMobile(ids[ids.length-1]))return;
-  runQuote();
-}));
-function runQuote(){
-  openModal('quoteModal');
-  $('quoteLoader').classList.remove('hidden');$('quoteResults').classList.add('hidden');
-  $('quoteBar').style.width='0%';setTimeout(()=>$('quoteBar').style.width='100%',50);
-  const names={car:'Car Insurance',bike:'Bike Insurance',health:'Health Insurance',term:'Term Life Insurance',travel:'Travel Insurance',home:'Home Insurance'};
-  $('qmTitle').textContent=names[activeQuote]+' — Best 3 Plans';
-  setTimeout(()=>{
-    let base={car:carPremium(),bike:bikePremium(),health:healthPremium(),term:termPremium(),travel:travelPremium(),home:homePremium()}[activeQuote];
-    const per={car:'/year',bike:'/year',health:'/month',term:'/month',travel:'/trip',home:'/year'}[activeQuote];
-    const picked=[...insurerPool].sort(()=>.5-Math.random()).slice(0,3);
-    const mults=[0.94,1,1.12];
-    $('quoteResults').innerHTML=picked.map((p,i)=>{
-      const price=Math.round(base*mults[i]);const mrp=Math.round(price*1.32);
-      const feats=(featPool[activeQuote]||featPool.car).slice(i,i+4);
-      return `<div class="bg-white rounded-2xl border-2 ${i===0?'border-lunaRed shadow-pop':'border-slate-100'} p-5 relative flex flex-col">
-        ${i===0?'<span class="absolute -top-3 left-4 bg-gradient-to-r from-lunaRed to-lunaOrange text-white text-[11px] font-extrabold px-3 py-1 rounded-full">★ BEST VALUE • SAVE 32%</span>':i===1?'<span class="absolute -top-3 left-4 bg-lunaBlue text-white text-[11px] font-extrabold px-3 py-1 rounded-full">MOST POPULAR</span>':''}
-        <div class="flex items-center gap-3 mt-1"><div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-extrabold text-lg" style="background:${p.c}">${p.n[0]}</div><div><b>${p.n}</b><div class="text-xs text-slate-500">⭐ ${p.r} • Claim ${p.cs}</div></div></div>
-        <div class="mt-3 flex items-end gap-2"><span class="text-3xl font-extrabold text-lunaBlue">${inr(price)}</span><span class="text-sm text-slate-400 font-semibold">${per}</span><span class="text-sm line-through text-slate-400 ml-auto">${inr(mrp)}</span></div>
-        <ul class="mt-3 space-y-1.5 text-[13px] font-medium text-slate-600 flex-1">${feats.map(f=>`<li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>${f}</li>`).join('')}</ul>
-        <div class="mt-4 grid grid-cols-2 gap-2"><button onclick="buyPlan('${p.n} ${names[activeQuote]}',${price})" class="btn-primary text-white font-extrabold py-2.5 rounded-xl text-sm">Buy Now</button><button onclick="toast('Plan details PDF sent to your WhatsApp','success')" class="border-2 border-slate-200 font-bold py-2.5 rounded-xl text-sm hover:border-lunaBlue">Details</button></div>
-      </div>`}).join('');
-    $('quoteLoader').classList.add('hidden');$('quoteResults').classList.remove('hidden');
-    $('qmSub').textContent=`Showing 3 of ${rnd(18,32)} plans • IDV/Cover customisable at next step`;
-  },1600);
-}
-
-/* ============ PRODUCTS GRID ============ */
-const products=[
- {i:'fa-car',t:'Car Insurance',d:'Zero-dep from ₹2,199/yr • 7500+ cashless garages',tag:'45% OFF',tab:'car'},
- {i:'fa-motorcycle',t:'Bike Insurance',d:'Plans from ₹538/yr • Instant renewal, no inspection',tag:'Best Price',tab:'bike'},
- {i:'fa-heart-pulse',t:'Health Insurance',d:'₹5L–₹1Cr cover • 10,000+ cashless hospitals',tag:'₹1Cr @ ₹835',tab:'health'},
- {i:'fa-user-shield',t:'Term Life Insurance',d:'₹1Cr @ ₹490/mo • 99.2% claim settlement',tag:'Must Have',tab:'term'},
- {i:'fa-plane-departure',t:'Travel Insurance',d:'USA/Europe/Worldwide • Visa-compliant in 2 min',tag:'From ₹299',tab:'travel'},
- {i:'fa-house-chimney',t:'Home Insurance',d:'Structure + contents • Fire, theft & calamity',tag:'From ₹1,999',tab:'home'},
- {i:'fa-briefcase',t:'Business / SME',d:'Fire, liability, group health & marine cover',tag:'Custom',tab:'car'},
- {i:'fa-seedling',t:'Crop & Rural',d:'PMFBY + cattle, tractor & weather insurance',tag:'Govt. Subsidy',tab:'home'}
-];
-$('productGrid').innerHTML=products.map(p=>`
- <div class="prod-card bg-white border-2 border-slate-100 rounded-2xl p-5 cursor-pointer reveal visible" onclick="gotoTab('${p.tab}')">
-   <span class="absolute top-4 right-4 text-[10px] font-extrabold bg-red-50 text-lunaRed border border-red-100 px-2.5 py-1 rounded-full">${p.tag}</span>
-   <div class="prod-icon w-14 h-14 rounded-2xl bg-lunaLight text-lunaBright flex items-center justify-center text-2xl"><i class="fa-solid ${p.i}"></i></div>
-   <h3 class="font-extrabold text-lg mt-4">${p.t}</h3><p class="text-[13px] text-slate-500 mt-1 leading-relaxed">${p.d}</p>
-   <div class="mt-4 flex items-center gap-2 text-sm font-extrabold text-lunaRed">Check Price <i class="fa-solid fa-arrow-right"></i></div>
- </div>`).join('');
-function gotoTab(t){scrollToQuote();document.querySelector(`.quote-tab[data-tab="${t}"]`)?.click()}
-
-/* ============ RENEW LOOKUP ============ */
-function lookupRenew(){
-  const v=$('renewInput').value.trim().toUpperCase();
-  if(v.length<5){toast('Enter valid Vehicle / Policy number','error');return}
-  const box=$('renewResult');box.classList.remove('hidden');
-  box.innerHTML=`<div class="bg-lunaLight border border-blue-100 rounded-2xl p-4 text-sm font-semibold text-lunaBlue"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Fetching policy from insurer database...</div>`;
-  setTimeout(()=>{
-    const due='15 Oct 2026';const prem=rnd(4200,9800);const ncb=rnd(20,50);
-    box.innerHTML=`<div class="border-2 border-green-200 bg-green-50/50 rounded-2xl p-4">
-      <div class="flex items-center gap-2 text-green-700 font-extrabold"><i class="fa-solid fa-circle-check"></i> Policy Found! <span class="ml-auto text-xs bg-green-600 text-white px-2.5 py-1 rounded-full">NCB ${ncb}% SAFE</span></div>
-      <div class="mt-3 grid grid-cols-2 gap-2 text-sm"><div class="bg-white rounded-xl p-3 border"><p class="text-[11px] text-slate-400 font-bold">VEHICLE / POLICY</p><b>${v||'DL01AB1234'}</b></div><div class="bg-white rounded-xl p-3 border"><p class="text-[11px] text-slate-400 font-bold">EXPIRY DATE</p><b class="text-lunaRed">${due}</b></div>
-      <div class="bg-white rounded-xl p-3 border"><p class="text-[11px] text-slate-400 font-bold">INSURER</p><b>HDFC Ergo General</b></div><div class="bg-white rounded-xl p-3 border"><p class="text-[11px] text-slate-400 font-bold">RENEWAL PREMIUM</p><b class="text-lunaBlue text-lg">${inr(prem)}</b></div></div>
-      <button onclick="buyPlan('Policy Renewal ${v}',${prem})" class="mt-3 w-full btn-blue text-white font-extrabold py-3 rounded-xl">Renew Now & Keep NCB</button></div>`;
-  },1200);
-}
-/* ============ CLAIM TRACK ============ */
-function trackClaim(){
-  let v=$('claimInput').value.trim().toUpperCase()||'LUNA/CL/88214';
-  const box=$('claimResult');box.classList.remove('hidden');
-  box.innerHTML=`<div class="bg-lunaLight border border-blue-100 rounded-2xl p-4 text-sm font-semibold"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Connecting to claim server...</div>`;
-  setTimeout(()=>{
-    const stage=rnd(2,4);
-    const steps=[['Claim Filed','Documents received',1],['Survey / Verification','Surveyor assigned',1],['Approved','₹68,400 approved',stage>=3?1:0],['Amount Settled','NEFT in 24-48 hrs',stage>=4?1:0]];
-    box.innerHTML=`<div class="border-2 border-slate-100 rounded-2xl p-5 bg-white relative">
-      <div class="flex items-center justify-between"><b>${v}</b><span class="text-xs font-extrabold ${stage>=4?'bg-green-100 text-green-700':'bg-amber-100 text-amber-700'} px-3 py-1 rounded-full">${stage>=4?'SETTLED':'IN PROGRESS • Stage '+stage+'/4'}</span></div>
-      <div class="mt-4 relative pl-1">${steps.map((s,i)=>`<div class="flex gap-4 pb-6 last:pb-0 relative">
-        <div class="w-10 h-10 shrink-0 rounded-full ${s[2]?'bg-green-500':'bg-slate-200'} text-white flex items-center justify-center font-bold z-10">${s[2]?'<i class="fa-solid fa-check"></i>':(i+1)}</div>
-        ${i<3?`<span class="timeline-line"></span>`:''}
-        <div><b class="text-sm">${s[0]}</b><p class="text-xs text-slate-500">${s[1]}</p></div></div>`).join('')}</div>
-      <div class="mt-2 bg-lunaLight rounded-xl p-3 text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-user-tie text-lunaBright"></i> Claim Manager: <b>Rohit Sharma</b> <a href="tel:18001203456" class="ml-auto text-lunaRed font-extrabold"><i class="fa-solid fa-phone"></i> Call</a></div>
-    </div>`;
-  },1300);
-}
-
-/* ============ PLANS + COMPARE ============ */
-const allPlans={
- health:[
-  {n:'Luna Health Supreme ₹10L',ins:'Niva Bupa',price:835,per:'/mo',rate:4.7,cs:'96.8%',f:['No room-rent cap','10,400+ cashless hospitals','Free annual checkup','30-day waiting only']},
-  {n:'Star Family Shield ₹25L',ins:'Star Health',price:1240,per:'/mo',rate:4.6,cs:'97.5%',f:['Restore benefit 100%','AYUSH + maternity','Home care covered','No-claim bonus 50%']},
-  {n:'HDFC Optima Restore ₹5L',ins:'HDFC Ergo',price:612,per:'/mo',rate:4.7,cs:'98.4%',f:['2× auto-restore','Pre/post 60/180 days','Multiply wellness reward','Cashless everywhere']}
- ],
- term:[
-  {n:'Luna Term Secure+ ₹1Cr',ins:'SBI Life',price:490,per:'/mo',rate:4.8,cs:'99.2%',f:['99.2% settlement','Critical illness rider','Accidental + disability','Payout in 30 days']},
-  {n:'LIC Tech Term ₹2Cr',ins:'LIC of India',price:1150,per:'/mo',rate:4.9,cs:'99.5%',f:['Sovereign guarantee','Women discount 5%','Flexible premium','Offline + online claim']},
-  {n:'Tata Shield Pro ₹1.5Cr',ins:'Tata AIA',price:720,per:'/mo',rate:4.6,cs:'99.1%',f:['Terminal illness payout','Premium waiver','Monthly income option','Tele-medical free']}
- ],
- motor:[
-  {n:'Zero-Dep Car Plan',ins:'Go Digit',price:2199,per:'/yr',rate:4.7,cs:'98.8%',f:['Zero depreciation','6-min selfie claim','7500+ garages','Roadside assist free']},
-  {n:'Bumper-to-Bumper +',ins:'ICICI Lombard',price:3899,per:'/yr',rate:4.6,cs:'97.9%',f:['Engine + gearbox','Consumables covered','Key replacement','Daily allowance']},
-  {n:'Bike Comprehensive',ins:'Bajaj Allianz',price:1050,per:'/yr',rate:4.5,cs:'97.2%',f:['OD + TP 5yr','PA cover ₹15L','Theft + calamity','Instant e-policy']}
- ]
-};
-let curPlanCat='health',compareSel=[];
-document.querySelectorAll('.plan-tab').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.plan-tab').forEach(x=>{x.classList.remove('bg-lunaBlue','text-white');x.classList.add('text-slate-600')});
-  b.classList.add('bg-lunaBlue','text-white');b.classList.remove('text-slate-600');
-  curPlanCat=b.dataset.p;renderPlans();
-});
-function renderPlans(){
-  $('plansGrid').innerHTML=allPlans[curPlanCat].map((p,i)=>`
-   <div class="bg-white border-2 border-slate-100 rounded-3xl p-6 hover:border-lunaRed hover:shadow-card transition relative">
-     ${i===0?'<span class="absolute -top-3 left-6 bg-gradient-to-r from-lunaRed to-lunaOrange text-white text-[11px] font-extrabold px-3 py-1 rounded-full">BESTSELLER</span>':''}
-     <div class="flex items-start justify-between"><div><p class="text-xs font-bold text-slate-400 uppercase tracking-widest">${p.ins}</p><h3 class="font-extrabold text-lg leading-tight mt-1">${p.n}</h3><p class="text-xs text-slate-500 mt-1">⭐ ${p.rate} • Claim Settlement ${p.cs}</p></div>
-     <label class="flex flex-col items-center gap-1 text-[11px] font-bold text-slate-500 cursor-pointer"><input type="checkbox" onchange="toggleCompare('${p.n}',this.checked)" ${compareSel.includes(p.n)?'checked':''} class="w-5 h-5 accent-red-600">Compare</label></div>
-     <div class="mt-3 flex items-end gap-1"><span class="text-3xl font-extrabold text-lunaBlue">${inr(p.price)}</span><span class="text-sm text-slate-400 font-bold mb-1">${p.per}</span></div>
-     <ul class="mt-3 space-y-1.5 text-[13px] font-medium text-slate-600">${p.f.map(f=>`<li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-0.5"></i>${f}</li>`).join('')}</ul>
-     <div class="mt-4 grid grid-cols-2 gap-2"><button onclick="buyPlan('${p.n}',${p.price})" class="btn-primary text-white font-extrabold py-2.5 rounded-xl text-sm">Buy Now</button><button onclick="toast('Brochure sent on WhatsApp & Email','success')" class="border-2 border-slate-200 font-bold py-2.5 rounded-xl text-sm hover:border-lunaBlue">Brochure</button></div>
-   </div>`).join('');
-}
-renderPlans();
-function toggleCompare(n,on){if(on){if(compareSel.length>=3){toast('You can compare max 3 plans','error');renderPlans();return}compareSel.push(n)}else compareSel=compareSel.filter(x=>x!==n);
-  $('compareBar').classList.toggle('hidden',compareSel.length<2);$('compareCount').textContent=compareSel.length+' plans selected'}
-function clearCompare(){compareSel=[];$('compareBar').classList.add('hidden');renderPlans()}
-function openCompare(){
-  const all=[...allPlans.health,...allPlans.term,...allPlans.motor];
-  const rows=compareSel.map(n=>all.find(p=>p.n===n)).filter(Boolean);
-  $('compareTable').innerHTML=`<tr class="bg-slate-50"><th class="text-left p-3 rounded-l-xl">Feature</th>${rows.map(r=>`<th class="p-3 text-center"><span class="text-[11px] text-slate-400 block">${r.ins}</span>${r.n}</th>`).join('')}</tr>
-  ${['price|Premium','rate|Rating','cs|Claim Ratio'].map(k=>{const[key,l]=k.split('|');return `<tr class="border-b"><td class="p-3 font-bold text-slate-500">${l}</td>${rows.map(r=>`<td class="p-3 text-center font-extrabold text-lunaBlue">${key==='price'?inr(r.price)+r.per:r[key]}</td>`).join('')}</tr>`}).join('')}
-  <tr><td class="p-3 font-bold text-slate-500">Key Benefits</td>${rows.map(r=>`<td class="p-3 text-xs">${r.f.map(f=>'✓ '+f).join('<br>')}</td>`).join('')}</tr>
-  <tr><td></td>${rows.map(r=>`<td class="p-3 text-center"><button onclick="closeModal('compareModal');buyPlan('${r.n}',${r.price})" class="btn-primary text-white text-sm font-bold px-5 py-2 rounded-full">Buy This</button></td>`).join('')}</tr>`;
-  openModal('compareModal');
-}
-
-/* ============ TERM CALCULATOR ============ */
-function paintRange(el){const p=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--fill',p+'%')}
-['cAge','cInc','cLoan','cTerm','pospRange'].forEach(id=>{const el=$(id);el.addEventListener('input',()=>{paintRange(el);if(id==='pospRange')calcPosp();else calcTerm()});paintRange(el)});
-function calcTerm(){
-  const age=+$('cAge').value,inc=+$('cInc').value,loan=+$('cLoan').value,term=+$('cTerm').value,sm=$('cSmoke').checked;
-  $('cAgeV').textContent=age+' yrs';$('cIncV').textContent='₹'+inc+' Lakh';$('cLoanV').textContent='₹'+loan+' Lakh';$('cTermV').textContent=term+' yrs';
-  let cover=inc*12+loan; cover=Math.max(25,cover);
-  const cr=cover>=100?(cover/100).toFixed(1)+' Cr':'₹'+cover+' L';
-  $('calcCover').textContent=cover>=100?'₹'+(cover/100).toFixed(1)+' Cr':'₹'+cover+' Lakh';
-  let prem=(cover*100000/10000000)*620*(1+(age-25)*0.09)*(sm?1.42:1)*(term/30*0.35+0.82);
-  prem=Math.max(490,prem);$('calcPrem').textContent=inr(prem);
-  const tot=cover;const b1=Math.min(95,(inc*12)/tot*100);
-  $('b1').style.width=b1+'%';$('b2').style.width=Math.max(4,100-b1)+'%';
-  $('b1v').textContent='₹'+(inc*12)+' L';$('b2v').textContent='₹'+loan+' L';
-}
-calcTerm();
-function calcPosp(){const n=+$('pospRange').value;$('pospN').textContent=n;$('pospIncome').textContent=inr(n*10000*0.18)}
-
-/* ============ PARTNERS ============ */
-const partners=['HDFC ERGO','ICICI LOMBARD','TATA AIG','BAJAJ ALLIANZ','GO DIGIT','STAR HEALTH','NIVA BUPA','SBI LIFE','LIC INDIA','MAX LIFE','KOTAK LIFE','ADITYA BIRLA','MANIPAL CIGNA','CARE HEALTH','IFFCO TOKIO','CHOLA MS'];
-$('partnerRow').innerHTML=[...partners,...partners].map(p=>`<span class="bg-white border rounded-2xl px-6 py-3.5 font-extrabold text-lunaBlue text-sm tracking-wide shadow-sm whitespace-nowrap">${p}</span>`).join('');
-$('partnerGrid').innerHTML=partners.slice(0,12).map(p=>`<div class="partner-logo bg-white border rounded-2xl px-3 py-4 text-center font-extrabold text-[12px] text-lunaBlue shadow-sm">${p}</div>`).join('');
-
-/* ============ TESTIMONIALS ============ */
-const testi=[
- {n:'Rajesh Agarwal',c:'Delhi • Car Insurance',img:12,t:'My Creta claim of ₹86,000 was settled in 5 days. Luna manager coordinated with garage directly — I paid zero from pocket. Truly hassle-free!',s:5},
- {n:'Priya Nair',c:'Bengaluru • Health ₹25L',img:47,t:'Mother\'s surgery was cashless at Manipal. Luna team got pre-authorization approved in 40 minutes at 11pm. Forever grateful for this support.',s:5},
- {n:'Amit Verma',c:'Mumbai • Term ₹1Cr',img:33,t:'Got ₹1 crore term at just ₹512/month — same plan my bank quoted ₹890 for. Medical was done at home. Transparent advice, no mis-selling.',s:5},
- {n:'Sunita Patil',c:'Pune • Family Health',img:45,t:'Renewed 3 policies together and saved ₹9,400 with NCB transfer. Advisor explained every clause in Marathi. Very patient and honest team.',s:5},
- {n:'Vikram Singh',c:'Jaipur • Travel USA',img:59,t:'US visa needed insurance urgently. Got Schengen+USA compliant policy on WhatsApp in 8 minutes. Embassy accepted without any query.',s:4}
-];
-$('tTrack').innerHTML=testi.map(x=>`<div class="t-card shrink-0 w-full sm:w-1/2 lg:w-1/2 xl:w-1/2 px-2"><div class="bg-white rounded-3xl p-6 h-full">
- <div class="text-lunaGold tracking-widest">${'★'.repeat(x.s)}${'☆'.repeat(5-x.s)}</div>
- <p class="mt-3 text-[15px] text-slate-600 leading-relaxed">"${x.t}"</p>
- <div class="mt-4 flex items-center gap-3"><img src="https://i.pravatar.cc/80?img=${x.img}" class="w-12 h-12 rounded-full object-cover border-2 border-lunaLight"><div><b>${x.n}</b><p class="text-xs text-slate-500">${x.c}</p></div><span class="ml-auto text-green-500 text-xs font-bold"><i class="fa-solid fa-badge-check"></i> Verified</span></div></div></div>`).join('');
-let tIdx=0;function tGo(d){const cards=document.querySelectorAll('.t-card');tIdx=(tIdx+d+testi.length)%testi.length;const w=cards[0].offsetWidth;$('tTrack').style.transform=`translateX(-${tIdx*w}px)`;$('tTrack').style.transition='transform .6s cubic-bezier(.2,.7,.3,1)'}
-setInterval(()=>{if(window.innerWidth>640)tGo(1)},4500);
-
-/* ============ BLOG ============ */
-const blogs=[
- {t:'Car Insurance: Zero-Dep vs Comprehensive — Which Saves More?',d:'5 min read • 12k views',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400&auto=format&fit=crop'},
- {t:'₹5 Lakh vs ₹1 Crore Health Cover: Real Hospital Bill Math',d:'7 min read • 28k views',img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=400&auto=format&fit=crop'},
- {t:'Term Insurance Claim Rejection: 7 Mistakes to Never Make',d:'6 min read • 19k views',img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=400&auto=format&fit=crop'}
-];
-$('blogList').innerHTML=blogs.map(b=>`<div class="bg-white rounded-2xl overflow-hidden border flex gap-4 p-3 hover:shadow-lg transition cursor-pointer" onclick="toast('Opening full article...','info')"><img src="${b.img}" class="w-28 h-24 rounded-xl object-cover shrink-0"><div class="py-1"><h4 class="font-extrabold text-[15px] leading-snug">${b.t}</h4><p class="text-xs text-slate-400 mt-1.5">${b.d}</p><span class="text-xs font-extrabold text-lunaRed">Read Guide <i class="fa-solid fa-arrow-right"></i></span></div></div>`).join('');
-
-/* ============ FAQ ============ */
-const faqs=[
- ['Is Luna Insurance IRDAI approved?','Yes. Luna Insurance Brokers Pvt. Ltd. holds IRDAI Direct Broker Licence No. DB 592/18 (Life + General), valid till 2028. As a broker, we legally represent YOU — not any single insurer.'],
- ['Will my No-Claim Bonus (NCB) transfer if I switch to Luna?','Absolutely. Your NCB up to 50% transfers even when you change insurer via Luna. We fetch your NCB certificate and apply the discount automatically at renewal.'],
- ['How do claims work? Do you really help?','You get a dedicated Claim Manager. For cashless health claims we coordinate pre-authorization; for motor, we arrange survey + garage. Our weighted claim settlement support rate is 98.2% across partners.'],
- ['Is online policy as valid as offline/agency policy?','100% identical and legally valid. E-policies are issued directly by the insurer on IRDAI-approved formats and accepted by RTOs, hospitals and embassies. Plus you save commission.'],
- ['What if I want a refund / cancellation?','Motor & health policies have a free-look / cancellation window with pro-rata refund as per IRDAI rules. Term plans offer 30-day money-back if no claim. We process refunds in 5-7 days.'],
- ['Do you sell of only one company like agents?','No — that\'s the broker advantage. Agents represent one insurer; we compare 42+ insurers side-by-side and recommend what\'s genuinely best for your needs and budget.'],
- ['How does the POSP program pay commission?','POSP advisors earn 12–22% commission per policy (as per IRDAI payout norms), credited weekly to bank. Average active POSP earns ₹28,000–₹55,000/month working part-time.']
-];
-function renderFaq(list){$('faqList').innerHTML=list.map((f,i)=>`<div class="faq-item bg-white border-2 border-slate-100 rounded-2xl overflow-hidden transition"><button onclick="this.parentElement.classList.toggle('open')" class="w-full flex items-center gap-3 text-left px-5 py-4 font-bold text-[15px]">${f[0]}<i class="fa-solid fa-angle-down faq-arrow ml-auto text-lunaRed transition"></i></button><div class="faq-ans"><p class="px-5 pb-4 text-sm text-slate-500 leading-relaxed">${f[1]}</p></div></div>`).join('')}
-renderFaq(faqs);
-function filterFaq(){const q=$('faqSearch').value.toLowerCase();renderFaq(faqs.filter(f=>f[0].toLowerCase().includes(q)||f[1].toLowerCase().includes(q)))}
-
-/* ============ BUY FLOW ============ */
-let buyPrice=0,buyPlanName='';
-function buyPlan(name,price){buyPlanName=name;buyPrice=price;
-  closeModal('quoteModal');
-  $('buyTitle').textContent=name;
-  const disc=Math.round(price*0.12);const total=Math.round((price-disc)*1.18);
-  $('sumPlan').textContent=name;$('sumPrice').textContent=inr(price);$('sumDisc').textContent='-'+inr(disc);$('sumTotal').textContent=inr(total);$('payAmt').textContent=inr(total);
-  buyNext(1,true);openModal('buyModal');
-}
-function buyNext(n,force){
-  if(!force){
-    if(n===2&&(!$('bName').value.trim()||!validMobile($('bMobile').value.trim())||!$('bEmail').value.includes('@'))){toast('Fill Name, valid Mobile & Email','error');return}
-    if(n===3&&!$('bNominee').value.trim()){toast('Please enter nominee name','error');return}
-  }
-  [1,2,3,4].forEach(i=>$('buyStep'+i).classList.toggle('hidden',i!==n));
-  document.querySelectorAll('#buySteps .step').forEach(s=>{const k=+s.dataset.s;s.classList.toggle('active',k===n);s.classList.toggle('done',k<n)});
-}
-function payMethod(btn,m){
-  document.querySelectorAll('.pay-btn').forEach(b=>{b.classList.remove('border-lunaBlue','bg-lunaLight');b.classList.add('border-slate-200')});
-  btn.classList.add('border-lunaBlue','bg-lunaLight');btn.classList.remove('border-slate-200');
-  $('payBox').innerHTML=m==='UPI'?`<input id="upiId" placeholder="yourname@upi" class="w-full border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold bg-white">`:m==='Card'?`<div class="grid grid-cols-2 gap-2"><input placeholder="Card Number" maxlength="19" class="col-span-2 border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold bg-white"><input placeholder="MM/YY" class="border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold bg-white"><input placeholder="CVV" type="password" maxlength="3" class="border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold bg-white"></div>`:`<select class="w-full border-2 border-slate-200 rounded-xl px-4 py-2.5 text-sm font-semibold bg-white"><option>HDFC Bank</option><option>SBI</option><option>ICICI Bank</option><option>Axis Bank</option><option>Kotak</option></select>`;
-}
-function processPayment(){
-  const b=$('payBtn');b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Processing payment...';b.disabled=true;
-  setTimeout(()=>{b.innerHTML='Pay Securely';b.disabled=false;
-    $('policyNo').textContent='LUNA/2026/'+rnd(100000,999999);buyNext(4,true);toast('Payment successful! Policy issued.','success');
-  },1800);
-}
-function downloadPolicy(){
-  const txt=`LUNA INSURANCE BROKERS PVT. LTD.\nIRDAI Licence No: DB 592/18\n----------------------------------------\nPOLICY CERTIFICATE (Sample E-Policy)\nPolicy No: ${$('policyNo').textContent}\nPlan: ${buyPlanName}\nName: ${$('bName').value}\nPremium Paid: ${$('payAmt').textContent}\nDate: ${new Date().toLocaleDateString('en-IN')}\n----------------------------------------\nThank you for choosing Luna Insurance.\nToll Free: 1800-120-3456 | care@lunainsurance.com`;
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));a.download='Luna-Policy.txt';a.click();
-  toast('Policy downloaded successfully','success');
-}
-
-/* ============ CALLBACK + OTP ============ */
-let demoOtp='1234';
-function openCallback(){openModal('callbackModal');['cbStep1','cbStep2','cbStep3'].forEach((s,i)=>$(s).classList.toggle('hidden',i!==0))}
-function sendOtp(resend){
-  const m=$('cbMobile').value.trim();
-  if(!validMobile(m)){toast('Enter valid 10-digit mobile','error');return}
-  demoOtp=String(rnd(1000,9999));
-  $('otpMobile').textContent=m;$('cbStep1').classList.add('hidden');$('cbStep2').classList.remove('hidden');
-  toast(`Demo OTP sent: ${demoOtp} (use this to verify)`,'success');
-  document.querySelectorAll('.otp').forEach(o=>o.value='');document.querySelector('.otp').focus();
-}
-document.querySelectorAll('.otp').forEach((o,i,arr)=>{o.addEventListener('input',()=>{o.value=o.value.replace(/\D/g,'');if(o.value&&i<3)arr[i+1].focus()});o.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!o.value&&i>0)arr[i-1].focus()})});
-function verifyOtp(){const v=[...document.querySelectorAll('.otp')].map(o=>o.value).join('');if(v===demoOtp){$('cbStep2').classList.add('hidden');$('cbStep3').classList.remove('hidden');toast('Callback confirmed!','success')}else toast('Incorrect OTP. Hint: check the toast message.','error')}
-
-/* ============ SEARCH ============ */
-const searchIdx=[['Car Insurance — from ₹2,199','#products','fa-car'],['Bike Insurance — from ₹538','#products','fa-motorcycle'],['Health Insurance — ₹1Cr plans','#products','fa-heart-pulse'],['Term Life — ₹1Cr @ ₹490','#calculator','fa-user-shield'],['Travel Insurance','#products','fa-plane'],['Renew Policy','#renew','fa-rotate-right'],['Track Claim','#claims','fa-file-circle-check'],['Become POSP Agent — earn 85k','#posp','fa-briefcase'],['Premium Calculator','#calculator','fa-calculator'],['Contact / Callback','#contact','fa-phone']];
-function openSearch(){openModal('searchOverlay');$('searchInput').value='';doSearch();setTimeout(()=>$('searchInput').focus(),100)}
-function closeSearch(){closeModal('searchOverlay')}
-function doSearch(){const q=($('searchInput').value||'').toLowerCase();const r=searchIdx.filter(x=>x[0].toLowerCase().includes(q));
-  $('searchResults').innerHTML=r.map(x=>`<a href="${x[1]}" onclick="closeSearch()" class="flex items-center gap-3 border rounded-xl px-4 py-3 hover:border-lunaRed hover:bg-red-50/40 transition"><span class="w-10 h-10 rounded-xl bg-lunaLight text-lunaBright flex items-center justify-center"><i class="fa-solid ${x[2]}"></i></span><b class="text-sm">${x[0]}</b><i class="fa-solid fa-arrow-right ml-auto text-slate-300"></i></a>`).join('')||'<p class="text-sm text-slate-400 text-center py-4">No results found</p>'}
-
-/* ============ CHATBOT ============ */
-const chips=['Car price?','Health ₹1Cr plans','Track claim','Term @ ₹490?','Talk to agent'];
-function toggleChat(open){$('chatWin').classList.toggle('hidden',!open);if(open&&!$('chatBody').children.length){botSay('Namaste! I am <b>Luna Mitra</b> — your insurance assistant. How can I help you today?');$('chatChips').innerHTML=chips.map(c=>`<button onclick="chipAsk('${c}')" class="shrink-0 text-xs font-bold bg-lunaLight text-lunaBlue px-3 py-1.5 rounded-full hover:bg-lunaBlue hover:text-white transition">${c}</button>`).join('')}}
-function bubble(html,me){const d=document.createElement('div');d.className='chat-msg flex '+(me?'justify-end':'justify-start');d.innerHTML=`<div class="max-w-[85%] px-4 py-2.5 rounded-2xl text-[13.5px] leading-relaxed ${me?'bg-lunaBlue text-white rounded-br-md':'bg-white border shadow-sm rounded-bl-md'}">${html}</div>`;$('chatBody').appendChild(d);$('chatBody').scrollTop=9999}
-function botSay(t){bubble(t,false)}
-function chipAsk(c){bubble(c,true);setTimeout(()=>botReply(c),500)}
-function sendChat(){const v=$('chatInput').value.trim();if(!v)return;$('chatInput').value='';bubble(v,true);setTimeout(()=>botReply(v),600)}
-function botReply(q){
-  q=q.toLowerCase();let a;
-  if(/car|vehicle|motor|bike/.test(q))a=`🚗 <b>Car insurance</b> starts @ <b>₹2,199/yr</b> with Zero-Dep. 7500+ cashless garages. Want me to open the quote form? <br><button onclick="scrollToQuote();toggleChat(false)" class="mt-2 bg-lunaRed text-white text-xs font-bold px-4 py-2 rounded-full">Get Car Quote</button>`;
-  else if(/health|1cr|medical|hospital/.test(q))a=`❤️ <b>₹1 Cr Health cover</b> @ just <b>₹835/month</b>. 10,000+ cashless hospitals, no room-rent cap. Best for family of 4: <b>Star Family Shield</b>. <br><button onclick="scrollToQuote();toggleChat(false)" class="mt-2 bg-lunaRed text-white text-xs font-bold px-4 py-2 rounded-full">Compare Health Plans</button>`;
-  else if(/term|life|490/.test(q))a=`🛡️ <b>₹1 Cr Term cover @ ₹490/month</b> (age 30, non-smoker). 99.2% claim ratio, free tele-medical. Try our calculator below! <br><button onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'});toggleChat(false)" class="mt-2 bg-lunaBlue text-white text-xs font-bold px-4 py-2 rounded-full">Open Calculator</button>`;
-  else if(/claim|track|status/.test(q))a=`📋 Track any claim instantly — just enter your Claim ID in the <b>Track Claim</b> box. For emergency claim help call <b>1800-120-3456</b> (24×7). <br><button onclick="document.getElementById('claims').scrollIntoView({behavior:'smooth',block:'center'});toggleChat(false)" class="mt-2 bg-lunaBlue text-white text-xs font-bold px-4 py-2 rounded-full">Track Claim Now</button>`;
-  else if(/agent|human|call|contact|posp/.test(q))a=`📞 Connecting you... Our licensed advisor will call within <b>10 minutes</b> (9 AM–9 PM). Or call directly: <b>1800-120-3456</b>. <br><button onclick="toggleChat(false);openCallback()" class="mt-2 bg-lunaRed text-white text-xs font-bold px-4 py-2 rounded-full">Request Callback</button>`;
-  else if(/price|cost|premium|quote/.test(q))a=`💰 Indicative prices:<br>• Car: <b>₹2,199+/yr</b><br>• Health ₹10L: <b>₹612/mo</b><br>• Term ₹1Cr: <b>₹490/mo</b><br>• Travel: <b>₹299/trip</b><br>Exact price depends on age/IDV. Shall I open quotes?`;
-  else if(/hi|hello|namaste|hey/.test(q))a=`Namaste! 🙏 I can help with <b>prices, plans, claims, renewals</b> and <b>POSP earnings</b>. What do you need today?`;
-  else a=`Got it! For detailed help, our expert advisor can call you free in 10 minutes. Meanwhile try: <b>"car price"</b>, <b>"health 1cr"</b> or <b>"track claim"</b>.`;
-  botSay(a);
-}
-
-/* ============ FORMS ============ */
-$('pospForm').addEventListener('submit',e=>{e.preventDefault();toast('POSP application received! Our team will call you within 2 hrs.','success');e.target.reset()});
-$('contactForm').addEventListener('submit',e=>{e.preventDefault();toast('Callback request received! Advisor will call in 10 min.','success');e.target.reset()});
-
-/* Close modals on outside click */
-document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{if(e.target===m){m.classList.add('hidden');document.body.style.overflow=''}}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-bg').forEach(m=>m.classList.add('hidden'))});
-</script>
-</body>
-</html>
